@@ -45,6 +45,20 @@ public class FuncionarioController {
         }
     }
 
+    public void alterarCargo(int id, String novoCargo) {
+        FuncionarioDAO dao = new FuncionarioDAOMySQL();
+
+        try {
+            if (dao.atualizarCargoDAO(id, novoCargo)) {
+                System.out.println("Cargo atualizado com sucesso!");
+            } else {
+                System.out.println("Problema ao atualizar o cargo. Tente novamente.");
+            }
+        } catch (RuntimeException e) {
+            System.out.println("Erro na operação!" + e.getMessage());
+        }
+    }
+
     public void demitirFuncionario(int id) {
         FuncionarioDAO dao = new FuncionarioDAOMySQL();
 

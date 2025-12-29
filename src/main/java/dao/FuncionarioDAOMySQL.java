@@ -124,6 +124,8 @@ public class FuncionarioDAOMySQL implements FuncionarioDAO {
         }
     }
 
+
+
     @Override
     public boolean excluirFuncionarioDAO(int id) {
 
