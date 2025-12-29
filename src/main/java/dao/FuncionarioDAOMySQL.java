@@ -124,7 +124,25 @@ public class FuncionarioDAOMySQL implements FuncionarioDAO {
         }
     }
 
+    public BigDecimal getSomaSalariosDAO() {
 
+        String sql = "SELECT SUM(salario) as somatoriaSalarios FROM funcionarios";
+
+        try (Connection conexao = FabricaConexoes.getConexao(); PreparedStatement stmt = conexao.prepareStatement(sql)) {
+
+            ResultSet resultado = stmt.executeQuery();
+
+            if (resultado.next()) {
+                return resultado.getBigDecimal("somatoriaSalarios");
+            }
+
+            return BigDecimal.ZERO;
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro na operação!", e);
+        }
+
+    }
 
     @Override
     public boolean excluirFuncionarioDAO(int id) {

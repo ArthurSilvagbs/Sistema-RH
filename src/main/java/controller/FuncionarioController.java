@@ -59,6 +59,11 @@ public class FuncionarioController {
         }
     }
 
+    public BigDecimal getFolhaDePagamento() {
+        FuncionarioDAO dao = new FuncionarioDAOMySQL();
+        return dao.getSomaSalariosDAO();
+    }
+
     public void demitirFuncionario(int id) {
         FuncionarioDAO dao = new FuncionarioDAOMySQL();
 

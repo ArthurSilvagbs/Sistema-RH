@@ -1,5 +1,7 @@
 package view;
 
+import java.math.BigDecimal;
+
 public class SistemaRH {
 
     public static void main(String[] args) {
