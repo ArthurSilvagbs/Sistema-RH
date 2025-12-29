@@ -21,4 +21,10 @@ public class FuncionarioController {
         }
 
     }
+
+    public void verListaFuncionarios() {
+        FuncionarioDAO dao = new FuncionarioDAOMySQL();
+
+        dao.verFuncionariosDoBanco();
+    }
 }

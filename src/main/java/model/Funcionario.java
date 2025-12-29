@@ -1,27 +1,35 @@
 package model;
 
+import java.math.BigDecimal;
+
 public class Funcionario {
 
     private int id;
     private String nome;
-    private double salario;
+    private BigDecimal salario;
     private String cargo;
 
-    public Funcionario(String nome, double salario, String cargo) {
+    public Funcionario(String nome, BigDecimal salario, String cargo) {
         this.nome = nome;
         this.salario = salario;
         this.cargo = cargo;
     }
 
-    public Funcionario(int id, String nome, double salario, String cargo) {
+    public Funcionario(int id, String nome, BigDecimal salario, String cargo) {
         this.id = id;
         this.nome = nome;
         this.salario = salario;
         this.cargo = cargo;
     }
 
+    public Funcionario() {}
+
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -32,11 +40,11 @@ public class Funcionario {
         this.nome = nome;
     }
 
-    public double getSalario() {
+    public BigDecimal getSalario() {
         return salario;
     }
 
-    public void setSalario(double salario) {
+    public void setSalario(BigDecimal salario) {
         this.salario = salario;
     }
 
