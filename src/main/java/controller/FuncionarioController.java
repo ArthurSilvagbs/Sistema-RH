@@ -4,6 +4,8 @@ import dao.FuncionarioDAO;
 import dao.FuncionarioDAOMySQL;
 import model.Funcionario;
 
+import java.util.List;
+
 public class FuncionarioController {
 
     public void contratarFuncionario(Funcionario funcionario) {
@@ -22,9 +24,9 @@ public class FuncionarioController {
 
     }
 
-    public void verListaFuncionarios() {
+    public List<Funcionario> verListaFuncionarios() {
         FuncionarioDAO dao = new FuncionarioDAOMySQL();
 
-        dao.verFuncionariosDoBanco();
+        return dao.verFuncionariosDoBanco();
     }
 }

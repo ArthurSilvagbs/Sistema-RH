@@ -34,7 +34,7 @@ public class FuncionarioDAOMySQL implements FuncionarioDAO {
     }
 
     @Override
-    public void verFuncionariosDoBanco() {
+    public List<Funcionario> verFuncionariosDoBanco() {
         String sql = "SELECT * FROM funcionarios";
         List<Funcionario> funcionarios = new ArrayList<>();
 
@@ -56,8 +56,9 @@ public class FuncionarioDAOMySQL implements FuncionarioDAO {
             }
 
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao salvar novo funcionário no banco", e);
+            throw new RuntimeException("Erro na operação!", e);
         }
+        return funcionarios;
     }
 
     @Override
