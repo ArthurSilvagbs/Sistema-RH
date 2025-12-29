@@ -62,8 +62,20 @@ public class FuncionarioDAOMySQL implements FuncionarioDAO {
     }
 
     @Override
-    public void atualizarSalario() {
+    public boolean atualizarSalarioNoBanco(int id, BigDecimal novoSalario) {
+        String sql = "UPDATE pessoas SET nome = ? where id = ?";
 
+        try (Connection conexao = FabricaConexoes.getConexao(); PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            stmt.setBigDecimal(1, novoSalario);
+            stmt.setInt(2, id);
+
+            int linhasAfetadas = stmt.executeUpdate();
+
+            return linhasAfetadas > 0;
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro na operação!", e);
+        }
     }
 
     @Override
