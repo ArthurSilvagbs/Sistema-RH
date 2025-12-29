@@ -44,4 +44,18 @@ public class FuncionarioController {
             System.out.println("Erro na operação!" + e.getMessage());
         }
     }
+
+    public void demitirFuncionario(int id) {
+        FuncionarioDAO dao = new FuncionarioDAOMySQL();
+
+        try {
+            if (dao.excluirFuncionarioDAO(id)) {
+                System.out.println("Demissão realizada!");
+            } else {
+                System.out.println("Algum problema ao demitir o funcionário.");
+            }
+        } catch (RuntimeException e) {
+            System.out.println("Erro na operação!" + e.getMessage());
+        }
+    }
 }

@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface FuncionarioDAO {
 
-    public String buscarFuncionarioPorID(int id);
-    public boolean adicionarioFuncionarioDAO(Funcionario funcionario);
-    public List<Funcionario> verFuncionariosDAO();
-    public boolean atualizarSalarioDAO(int id, BigDecimal novoSalario);
-    public void excluirFuncionarioDAO(int id);
+    String buscarFuncionarioPorID(int id);
+    boolean adicionarioFuncionarioDAO(Funcionario funcionario);
+    List<Funcionario> verFuncionariosDAO();
+    boolean atualizarSalarioDAO(int id, BigDecimal novoSalario);
+    boolean excluirFuncionarioDAO(int id);
 
 
 }

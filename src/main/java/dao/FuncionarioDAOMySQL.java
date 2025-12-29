@@ -13,8 +13,6 @@ import java.util.List;
 
 public class FuncionarioDAOMySQL implements FuncionarioDAO {
 
-    private FuncionarioDAO dao;
-
     public String buscarFuncionarioPorID(int id) {
         String sql = "SELECT id, nome, salario, cargo FROM funcionarios WHERE id = ?";
 
@@ -108,7 +106,21 @@ public class FuncionarioDAOMySQL implements FuncionarioDAO {
     }
 
     @Override
-    public void excluirFuncionarioDAO(int id) {
+    public boolean excluirFuncionarioDAO(int id) {
 
+        buscarFuncionarioPorID(id);
+
+        String sql = "DELETE FROM funcionario WHERE codigo = ?";
+
+        try (Connection conexao = FabricaConexoes.getConexao(); PreparedStatement stmt = conexao.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+            int linhasAfetadas = stmt.executeUpdate();
+
+            return linhasAfetadas > 0;
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao salvar novo funcionário no banco", e);
+        }
     }
 }
