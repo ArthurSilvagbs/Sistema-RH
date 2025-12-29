@@ -16,7 +16,7 @@ public class FuncionarioController {
             } else {
                 System.out.println("O banco recusou a inserção.");
             }
-        } catch (NullPointerException e) {
+        } catch (RuntimeException e) {
             System.out.println("Erro na operação!" + e.getMessage());
         }
 
