@@ -11,6 +11,7 @@ public interface FuncionarioDAO {
     boolean adicionarioFuncionarioDAO(Funcionario funcionario);
     List<Funcionario> verFuncionariosDAO();
     boolean atualizarSalarioDAO(int id, BigDecimal novoSalario);
+    boolean atualizarCargoDAO(int id, String novoCargo);
     boolean excluirFuncionarioDAO(int id);
 
 

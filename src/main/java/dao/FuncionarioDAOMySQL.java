@@ -90,10 +90,29 @@ public class FuncionarioDAOMySQL implements FuncionarioDAO {
 
         buscarFuncionarioPorID(id);
 
-        String sql = "UPDATE pessoas SET nome = ? where id = ?";
+        String sql = "UPDATE pessoas SET salario = ? where id = ?";
 
         try (Connection conexao = FabricaConexoes.getConexao(); PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setBigDecimal(1, novoSalario);
+            stmt.setInt(2, id);
+
+            int linhasAfetadas = stmt.executeUpdate();
+
+            return linhasAfetadas > 0;
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro na operação!", e);
+        }
+    }
+
+    @Override
+    public boolean atualizarCargoDAO(int id, String novoCargo) {
+        buscarFuncionarioPorID(id);
+
+        String sql = "UPDATE pessoas SET cargo = ? where id = ?";
+
+        try (Connection conexao = FabricaConexoes.getConexao(); PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            stmt.setString(1, novoCargo);
             stmt.setInt(2, id);
 
             int linhasAfetadas = stmt.executeUpdate();
