@@ -14,7 +14,7 @@ public class FuncionarioController {
         FuncionarioDAO dao = new FuncionarioDAOMySQL();
 
         try {
-            if (dao.adicionarioFuncionarioAoBanco(funcionario)) {
+            if (dao.adicionarioFuncionarioDAO(funcionario)) {
                 System.out.println("Contratação realizada!");
             } else {
                 System.out.println("O banco recusou a inserção.");
@@ -28,14 +28,14 @@ public class FuncionarioController {
     public List<Funcionario> verListaFuncionarios() {
         FuncionarioDAO dao = new FuncionarioDAOMySQL();
 
-        return dao.verFuncionariosDoBanco();
+        return dao.verFuncionariosDAO();
     }
 
     public void atualizarSalario(int id, BigDecimal novoSalario) {
         FuncionarioDAO dao = new FuncionarioDAOMySQL();
 
         try {
-            if (dao.atualizarSalarioNoBanco(id, novoSalario)) {
+            if (dao.atualizarSalarioDAO(id, novoSalario)) {
                 System.out.println("Salário atualizado com sucesso!");
             } else {
                 System.out.println("Problema ao atualizar o salário. Tente novamente.");

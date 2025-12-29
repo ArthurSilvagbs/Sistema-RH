@@ -15,8 +15,34 @@ public class FuncionarioDAOMySQL implements FuncionarioDAO {
 
     private FuncionarioDAO dao;
 
+    public String buscarFuncionarioPorID(int id) {
+        String sql = "SELECT id, nome, salario, cargo FROM funcionarios WHERE id = ?";
+
+        try (Connection conexao = FabricaConexoes.getConexao(); PreparedStatement stmt = conexao.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+            ResultSet resultado = stmt.executeQuery();
+
+            if (resultado.next()){
+                int idF = resultado.getInt("id");
+                String nome = resultado.getString("nome");
+                BigDecimal salario = resultado.getBigDecimal("salario");
+                String cargo = resultado.getString("cargo");
+
+                Funcionario funcionario = new Funcionario(idF, nome, salario, cargo);
+
+                return funcionario.toString();
+            } else {
+                return null;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro na operação! ", e);
+        }
+    }
+
     @Override
-    public boolean adicionarioFuncionarioAoBanco(Funcionario funcionario) {
+    public boolean adicionarioFuncionarioDAO(Funcionario funcionario) {
         String sql = "INSERT INTO funcionarios (nome, cargo, salario) VALUES (?, ?, ?)";
 
         try (Connection conexao = FabricaConexoes.getConexao(); PreparedStatement stmt = conexao.prepareStatement(sql)) {
@@ -34,7 +60,7 @@ public class FuncionarioDAOMySQL implements FuncionarioDAO {
     }
 
     @Override
-    public List<Funcionario> verFuncionariosDoBanco() {
+    public List<Funcionario> verFuncionariosDAO() {
         String sql = "SELECT * FROM funcionarios";
         List<Funcionario> funcionarios = new ArrayList<>();
 
@@ -62,7 +88,10 @@ public class FuncionarioDAOMySQL implements FuncionarioDAO {
     }
 
     @Override
-    public boolean atualizarSalarioNoBanco(int id, BigDecimal novoSalario) {
+    public boolean atualizarSalarioDAO(int id, BigDecimal novoSalario) {
+
+        buscarFuncionarioPorID(id);
+
         String sql = "UPDATE pessoas SET nome = ? where id = ?";
 
         try (Connection conexao = FabricaConexoes.getConexao(); PreparedStatement stmt = conexao.prepareStatement(sql)) {
@@ -79,7 +108,7 @@ public class FuncionarioDAOMySQL implements FuncionarioDAO {
     }
 
     @Override
-    public void demitirFuncionario() {
+    public void excluirFuncionarioDAO(int id) {
 
     }
 }
