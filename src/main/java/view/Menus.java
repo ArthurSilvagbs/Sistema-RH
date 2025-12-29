@@ -1,10 +1,15 @@
 package view;
 
+import controller.FuncionarioController;
+import model.Funcionario;
+
+import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class Menus {
 
-    private static Scanner sc = new Scanner(System.in);
+    private static final Scanner sc = new Scanner(System.in);
+    private static final FuncionarioController fc = new FuncionarioController();
 
     public void exibirMenuPrincipal() {
         System.out.println("""
@@ -28,7 +33,7 @@ public class Menus {
 
         switch (opcao) {
             case 1:
-                //exibirMenuContratacao();
+                exibirMenuContratacao();
                 break;
             case 2:
                 //exibirMenuListarFuncionarios();
@@ -53,6 +58,55 @@ public class Menus {
                 exibirMenuPrincipal();
         }
 
+    }
+
+    private static int repetirOperacao() {
+        System.out.println("""
+                    REPETIR OPERAÇÃO?
+                    
+                    [ 1 ] SIM
+                    [ 2 ] NÃO
+                    
+                    Selecione uma opção:\s""");
+        int opcaoConfirmacao = sc.nextInt();
+        sc.nextLine();
+
+        return opcaoConfirmacao;
+    }
+
+    private static void exibirMenuContratacao() {
+
+        do {
+            System.out.println("""
+                ======================================================
+                ============ CONTRATAR NOVO FUNCIONÁRIO ==============
+                ======================================================
+                *****        Insira os dados necessários         *****
+                ======================================================""");
+
+            System.out.print("Nome Comleto: ");
+            String nome = sc.nextLine();
+            System.out.print("Cargo: ");
+            String cargo = sc.nextLine();
+            System.out.print("Salário: ");
+            BigDecimal salario = sc.nextBigDecimal();
+
+            Funcionario funcionario = new Funcionario(nome, salario, cargo);
+
+            fc.contratarFuncionario(funcionario);
+
+            int repetir = repetirOperacao();
+
+            switch (repetir) {
+                case 1:
+                    break;
+                case 2:
+                    return;
+                default:
+                    System.out.println("Opção inválida!");
+                    repetirOperacao();
+            }
+        } while (true);
     }
 
 
