@@ -11,7 +11,7 @@ public class Menus {
     private static final Scanner sc = new Scanner(System.in);
     private static final FuncionarioController fc = new FuncionarioController();
 
-    public void exibirMenuPrincipal() {
+    public static void exibirMenuPrincipal() {
         System.out.println("""
                 ======================================================
                 =============== SISTEMA DE GESTÃO RH =================
@@ -36,18 +36,18 @@ public class Menus {
                 exibirMenuContratacao();
                 break;
             case 2:
-                //exibirMenuListarFuncionarios();
+                exibirMenuListarFuncionarios();
                 break;
             case 3:
-                //exibirMenuAtualizarSalario();
+                exibirMenuAtualizarSalario();
                 break;
             case 4:
-                //exibirMenuPromocaoDeCargo();
+                exibirMenuPromocaoDeCargo();
                 break;
             case 5:
-                //exibirMenuFolhaDePagamento();
+                exibirMenuFolhaDePagamento();
             case 6:
-                //exibirMenuDemitirFuncionario();
+                exibirMenuDemitirFuncionario();
                 break;
             case 7:
                 System.out.println("Finalizando o programa. Até logo!");
@@ -68,6 +68,21 @@ public class Menus {
                     [ 2 ] NÃO
                     
                     Selecione uma opção:\s""");
+        int opcaoConfirmacao = sc.nextInt();
+        sc.nextLine();
+
+        return opcaoConfirmacao;
+    }
+
+    private static int confirmacaoPesquisa() {
+        System.out.print("""
+                Confirma o resultado da pesquisa?
+                
+                [ 1 ] SIM
+                [ 2 ] NÃO
+                
+                Selecione uma opção:\s""");
+
         int opcaoConfirmacao = sc.nextInt();
         sc.nextLine();
 
@@ -101,6 +116,8 @@ public class Menus {
                 case 1:
                     break;
                 case 2:
+                    System.out.println("Voltando ao menu principal!");
+                    exibirMenuPrincipal();
                     return;
                 default:
                     System.out.println("Opção inválida!");
@@ -109,5 +126,132 @@ public class Menus {
         } while (true);
     }
 
+    private static void exibirMenuListarFuncionarios() {
 
+        System.out.println("""
+                ======================================================
+                =============== LISTA DE FUNCIONÁRIOS ================
+                ======================================================""");
+
+        fc.verListaFuncionarios();
+        exibirMenuPrincipal();
+    }
+
+    private static void exibirMenuAtualizarSalario() {
+
+        do {
+            System.out.println("""
+                ======================================================
+                ================= AJUSTE DE SALÁRIO ==================
+                ======================================================
+                *****  Insira o ID para pesquisar o funcionário  *****
+                ======================================================""");
+
+            System.out.print("ID do funcionário: ");
+            int id = sc.nextInt();
+            sc.nextLine();
+            System.out.println(fc.imprimirFuncionario(id));
+
+            int opcaoConfirmacao = confirmacaoPesquisa();
+
+            switch (opcaoConfirmacao) {
+                case 1:
+
+                    System.out.print("Valor do novo salário: ");
+                    BigDecimal novoSalario = sc.nextBigDecimal();
+                    sc.nextLine();
+                    fc.atualizarSalario(id, novoSalario);
+                    exibirMenuPrincipal();
+
+                case 2:
+                    System.out.println("Operação cancelada! Funcionário incorreto.");
+                    exibirMenuAtualizarSalario();
+                    return;
+                default:
+                    System.out.println("Opção inválida");
+            }
+        } while (true);
+
+    }
+
+    public static void exibirMenuPromocaoDeCargo() {
+
+        do {
+            System.out.println("""
+                ======================================================
+                ================= ALTERAR DE CARGO ===================
+                ======================================================
+                *****  Insira o ID para pesquisar o funcionário  *****
+                ======================================================""");
+
+            System.out.print("ID do funcionário: ");
+            int id = sc.nextInt();
+            sc.nextLine();
+            fc.imprimirFuncionario(id);
+
+            int opcaoConfirmacao = confirmacaoPesquisa();
+
+            switch (opcaoConfirmacao) {
+                case 1:
+
+                    System.out.print("Novo cargo: ");
+                    String novoCargo = sc.nextLine();
+
+                    fc.alterarCargo(id, novoCargo);
+
+                    exibirMenuPrincipal();
+
+                case 2:
+                    System.out.println("Operação cancelada! Funcionário incorreto.");
+                    exibirMenuPromocaoDeCargo();
+                    return;
+                default:
+                    System.out.println("Opção inválida");
+            }
+        } while (true);
+    }
+
+    public static void exibirMenuFolhaDePagamento() {
+
+        System.out.println("""
+                ======================================================
+                ============== FOLHA DE PAGAMENTO TOTAL ==============
+                ======================================================""");
+
+        fc.getFolhaDePagamento();
+        exibirMenuPrincipal();
+
+    }
+
+    public static void exibirMenuDemitirFuncionario() {
+
+        do {
+            System.out.println("""
+                ======================================================
+                ================ DEMITIR FUNCIONÁRIO =================
+                ======================================================
+                *****        Insira os dados necessários         *****
+                ======================================================""");
+
+            System.out.print("ID Funcionário: ");
+            int id = sc.nextInt();
+            sc.nextLine();
+
+            fc.imprimirFuncionario(id);
+
+            int opcaoConfirmacao = confirmacaoPesquisa();
+
+            switch (opcaoConfirmacao) {
+                case 1:
+                    fc.demitirFuncionario(id);
+                    exibirMenuPrincipal();
+                case 2:
+                    System.out.println("Operação cancelada! Funcionário incorreto.");
+                    exibirMenuDemitirFuncionario();
+                    return;
+                default:
+                    System.out.println("Opção inválida");
+            }
+        } while (true);
+    }
 }

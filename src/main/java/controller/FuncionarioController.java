@@ -9,6 +9,11 @@ import java.util.List;
 
 public class FuncionarioController {
 
+    public String imprimirFuncionario(int id) {
+        FuncionarioDAO dao = new FuncionarioDAOMySQL();
+        return dao.buscarFuncionarioPorID(id);
+    }
+
     public void contratarFuncionario(Funcionario funcionario) {
 
         FuncionarioDAO dao = new FuncionarioDAOMySQL();
