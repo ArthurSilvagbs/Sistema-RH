@@ -17,6 +17,7 @@ public class Menus {
         while (true) {
 
             System.out.println("""
+                \n
                 ======================================================
                 =============== SISTEMA DE GESTÃO RH =================
                 ======================================================
@@ -78,6 +79,7 @@ public class Menus {
 
         do {
             System.out.println("""
+                \n
                 ======================================================
                 ============ CONTRATAR NOVO FUNCIONÁRIO ==============
                 ======================================================
@@ -102,7 +104,6 @@ public class Menus {
                     break;
                 case 2:
                     System.out.println("Voltando ao menu principal!");
-                    exibirMenuPrincipal();
                     return;
                 default:
                     System.out.println("Opção inválida!");
@@ -114,18 +115,19 @@ public class Menus {
     private static void exibirMenuListarFuncionarios() {
 
         System.out.println("""
+                \n
                 ======================================================
                 =============== LISTA DE FUNCIONÁRIOS ================
                 ======================================================""");
 
         fc.verListaFuncionarios();
-        exibirMenuPrincipal();
     }
 
     private static void exibirMenuAtualizarSalario() {
 
         do {
             System.out.println("""
+                \n
                 ======================================================
                 ================= AJUSTE DE SALÁRIO ==================
                 ======================================================
@@ -144,11 +146,9 @@ public class Menus {
                     System.out.print("Valor do novo salário: ");
                     BigDecimal novoSalario = lerBigDecimal();
                     fc.atualizarSalario(id, novoSalario);
-                    exibirMenuPrincipal();
 
                 case 2:
                     System.out.println("Operação cancelada! Funcionário incorreto.");
-                    exibirMenuAtualizarSalario();
                     return;
                 default:
                     System.out.println("Opção inválida");
@@ -161,6 +161,7 @@ public class Menus {
 
         do {
             System.out.println("""
+                \n
                 ======================================================
                 ================= ALTERAR DE CARGO ===================
                 ======================================================
@@ -175,17 +176,12 @@ public class Menus {
 
             switch (opcaoConfirmacao) {
                 case 1:
-
                     System.out.print("Novo cargo: ");
                     String novoCargo = lerString();
-
                     fc.alterarCargo(id, novoCargo);
-
-                    exibirMenuPrincipal();
 
                 case 2:
                     System.out.println("Operação cancelada! Funcionário incorreto.");
-                    exibirMenuPromocaoDeCargo();
                     return;
                 default:
                     System.out.println("Opção inválida");
@@ -196,12 +192,12 @@ public class Menus {
     public static void exibirMenuFolhaDePagamento() {
 
         System.out.println("""
+                \n
                 ======================================================
                 ============== FOLHA DE PAGAMENTO TOTAL ==============
                 ======================================================""");
 
         System.out.println("R$ " + fc.getFolhaDePagamento());
-        exibirMenuPrincipal();
 
     }
 
@@ -209,6 +205,7 @@ public class Menus {
 
         do {
             System.out.println("""
+                \n
                 ======================================================
                 ================ DEMITIR FUNCIONÁRIO =================
                 ======================================================
@@ -224,10 +221,8 @@ public class Menus {
             switch (opcaoConfirmacao) {
                 case 1:
                     fc.demitirFuncionario(id);
-                    exibirMenuPrincipal();
                 case 2:
                     System.out.println("Operação cancelada! Funcionário incorreto.");
-                    exibirMenuDemitirFuncionario();
                     return;
                 default:
                     System.out.println("Opção inválida");
@@ -252,7 +247,9 @@ public class Menus {
     private static BigDecimal lerBigDecimal() {
         while(true) {
             try {
-                return sc.nextBigDecimal();
+                BigDecimal valor = sc.nextBigDecimal();
+                sc.nextLine();
+                return valor;
             } catch (InputMismatchException e) {
                 System.out.print("Erro! Digite um valor numérico (Ex: 1500,50): ");
                 sc.nextLine();
