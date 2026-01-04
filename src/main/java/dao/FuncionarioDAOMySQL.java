@@ -64,7 +64,7 @@ public class FuncionarioDAOMySQL implements FuncionarioDAO {
 
         try (Connection conexao = FabricaConexoes.getConexao(); PreparedStatement stmt = conexao.prepareStatement(sql)) {
 
-            ResultSet resultado = stmt.executeQuery(sql);
+            ResultSet resultado = stmt.executeQuery();
 
             while (resultado.next()) {
                 int id = resultado.getInt("id");
