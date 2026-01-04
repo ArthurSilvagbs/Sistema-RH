@@ -13,9 +13,7 @@ public class Menus {
 
     public static void exibirMenuPrincipal() {
 
-        boolean ligado = true;
-
-        while (ligado) {
+        while (true) {
 
             System.out.println("""
                 ======================================================
@@ -45,10 +43,11 @@ public class Menus {
                 case 6 -> exibirMenuDemitirFuncionario();
                 case 7 -> {
                     System.out.println("Finalizando o programa. Até logo!");
-                    ligado = false;
+                    System.exit(0);
                 }
                 default -> System.out.println("Opção Inválida!");
             }
+
         }
     }
 
