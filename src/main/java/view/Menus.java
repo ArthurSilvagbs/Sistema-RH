@@ -21,8 +21,8 @@ public class Menus {
         System.out.print("""
                 |\s\s         [ 1 ] - CONTRATAR FUNCIONÁRIO           \s\s|
                 |\s\s         [ 2 ] - VER LISTA DE FUNCIONÁRIOS       \s\s|
-                |\s\s         [ 3 ] - PROMOVER FUNCIONÁRIO            \s\s|
-                |\s\s         [ 4 ] - REAJUSTAR SALÁRIO               \s\s|
+                |\s\s         [ 3 ] - REAJUSTAR SALÁRIO               \s\s|
+                |\s\s         [ 4 ] - PROMOVER FUNCIONÁRIO            \s\s|
                 |\s\s         [ 5 ] - FOLHA DE PAGAMENTO              \s\s|
                 |\s\s         [ 6 ] - DEMITIR FUNCIONÁRIO             \s\s|
                 |\s\s         [ 7 ] - SAIR DO PROGRAMA                \s\s|
@@ -159,7 +159,6 @@ public class Menus {
 
                     System.out.print("Valor do novo salário: ");
                     BigDecimal novoSalario = sc.nextBigDecimal();
-                    sc.nextLine();
                     fc.atualizarSalario(id, novoSalario);
                     exibirMenuPrincipal();
 
@@ -187,7 +186,7 @@ public class Menus {
             System.out.print("ID do funcionário: ");
             int id = sc.nextInt();
             sc.nextLine();
-            fc.imprimirFuncionario(id);
+            System.out.println(fc.imprimirFuncionario(id));
 
             int opcaoConfirmacao = confirmacaoPesquisa();
 
@@ -218,7 +217,7 @@ public class Menus {
                 ============== FOLHA DE PAGAMENTO TOTAL ==============
                 ======================================================""");
 
-        fc.getFolhaDePagamento();
+        System.out.println("R$ " + fc.getFolhaDePagamento());
         exibirMenuPrincipal();
 
     }
@@ -236,8 +235,7 @@ public class Menus {
             System.out.print("ID Funcionário: ");
             int id = sc.nextInt();
             sc.nextLine();
-
-            fc.imprimirFuncionario(id);
+            System.out.println(fc.imprimirFuncionario(id));
 
             int opcaoConfirmacao = confirmacaoPesquisa();
 

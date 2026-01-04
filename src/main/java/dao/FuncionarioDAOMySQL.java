@@ -90,7 +90,7 @@ public class FuncionarioDAOMySQL implements FuncionarioDAO {
 
         buscarFuncionarioPorID(id);
 
-        String sql = "UPDATE pessoas SET salario = ? where id = ?";
+        String sql = "UPDATE funcionarios SET salario = ? where id = ?";
 
         try (Connection conexao = FabricaConexoes.getConexao(); PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setBigDecimal(1, novoSalario);
@@ -101,7 +101,7 @@ public class FuncionarioDAOMySQL implements FuncionarioDAO {
             return linhasAfetadas > 0;
 
         } catch (SQLException e) {
-            throw new RuntimeException("Erro na operação!", e);
+            throw new RuntimeException();
         }
     }
 
@@ -109,7 +109,7 @@ public class FuncionarioDAOMySQL implements FuncionarioDAO {
     public boolean atualizarCargoDAO(int id, String novoCargo) {
         buscarFuncionarioPorID(id);
 
-        String sql = "UPDATE pessoas SET cargo = ? where id = ?";
+        String sql = "UPDATE funcionarios SET cargo = ? where id = ?";
 
         try (Connection conexao = FabricaConexoes.getConexao(); PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setString(1, novoCargo);
@@ -149,7 +149,7 @@ public class FuncionarioDAOMySQL implements FuncionarioDAO {
 
         buscarFuncionarioPorID(id);
 
-        String sql = "DELETE FROM funcionario WHERE codigo = ?";
+        String sql = "DELETE FROM funcionarios WHERE id = ?";
 
         try (Connection conexao = FabricaConexoes.getConexao(); PreparedStatement stmt = conexao.prepareStatement(sql)) {
 
@@ -159,7 +159,7 @@ public class FuncionarioDAOMySQL implements FuncionarioDAO {
             return linhasAfetadas > 0;
 
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao salvar novo funcionário no banco", e);
+            throw new RuntimeException("Erro ao excluir funcionário do banco", e);
         }
     }
 }
