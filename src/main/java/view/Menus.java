@@ -4,6 +4,7 @@ import controller.FuncionarioController;
 import model.Funcionario;
 
 import java.math.BigDecimal;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menus {
@@ -31,8 +32,7 @@ public class Menus {
                 |\s\s         [ 7 ] - SAIR DO PROGRAMA                \s\s|
                 
                 Selecione um opção:\s""");
-            int opcao = sc.nextInt();
-            sc.nextLine();
+            int opcao = lerInteiro();
 
             switch (opcao) {
                 case 1 -> exibirMenuContratacao();
@@ -59,10 +59,7 @@ public class Menus {
                     [ 2 ] NÃO
                     
                     Selecione uma opção:\s""");
-        int opcaoConfirmacao = sc.nextInt();
-        sc.nextLine();
-
-        return opcaoConfirmacao;
+        return lerInteiro();
     }
 
     private static int confirmacaoPesquisa() {
@@ -74,10 +71,7 @@ public class Menus {
                 
                 Selecione uma opção:\s""");
 
-        int opcaoConfirmacao = sc.nextInt();
-        sc.nextLine();
-
-        return opcaoConfirmacao;
+        return lerInteiro();
     }
 
     private static void exibirMenuContratacao() {
@@ -91,11 +85,11 @@ public class Menus {
                 ======================================================""");
 
             System.out.print("Nome Comleto: ");
-            String nome = sc.nextLine();
+            String nome = lerString();
             System.out.print("Cargo: ");
-            String cargo = sc.nextLine();
+            String cargo = lerString();
             System.out.print("Salário: ");
-            BigDecimal salario = sc.nextBigDecimal();
+            BigDecimal salario = lerBigDecimal();
 
             Funcionario funcionario = new Funcionario(nome, salario, cargo);
 
@@ -139,8 +133,7 @@ public class Menus {
                 ======================================================""");
 
             System.out.print("ID do funcionário: ");
-            int id = sc.nextInt();
-            sc.nextLine();
+            int id = lerInteiro();
             System.out.println(fc.imprimirFuncionario(id));
 
             int opcaoConfirmacao = confirmacaoPesquisa();
@@ -149,7 +142,7 @@ public class Menus {
                 case 1:
 
                     System.out.print("Valor do novo salário: ");
-                    BigDecimal novoSalario = sc.nextBigDecimal();
+                    BigDecimal novoSalario = lerBigDecimal();
                     fc.atualizarSalario(id, novoSalario);
                     exibirMenuPrincipal();
 
@@ -175,8 +168,7 @@ public class Menus {
                 ======================================================""");
 
             System.out.print("ID do funcionário: ");
-            int id = sc.nextInt();
-            sc.nextLine();
+            int id = lerInteiro();
             System.out.println(fc.imprimirFuncionario(id));
 
             int opcaoConfirmacao = confirmacaoPesquisa();
@@ -185,7 +177,7 @@ public class Menus {
                 case 1:
 
                     System.out.print("Novo cargo: ");
-                    String novoCargo = sc.nextLine();
+                    String novoCargo = lerString();
 
                     fc.alterarCargo(id, novoCargo);
 
@@ -224,8 +216,7 @@ public class Menus {
                 ======================================================""");
 
             System.out.print("ID Funcionário: ");
-            int id = sc.nextInt();
-            sc.nextLine();
+            int id = lerInteiro();
             System.out.println(fc.imprimirFuncionario(id));
 
             int opcaoConfirmacao = confirmacaoPesquisa();
@@ -243,4 +234,40 @@ public class Menus {
             }
         } while (true);
     }
+
+    private static int lerInteiro() {
+
+        while(true) {
+            try {
+                int valor = sc.nextInt();
+                sc.nextLine();
+                return valor;
+            } catch (InputMismatchException e) {
+                System.out.print("Erro! Digite um valor número válido: ");
+                sc.nextLine();
+            }
+        }
+    }
+
+    private static BigDecimal lerBigDecimal() {
+        while(true) {
+            try {
+                return sc.nextBigDecimal();
+            } catch (InputMismatchException e) {
+                System.out.print("Erro! Digite um valor numérico (Ex: 1500,50): ");
+                sc.nextLine();
+            }
+        }
+    }
+
+    private static String lerString() {
+        while (true) {
+            String entrada = sc.nextLine();
+            if (!entrada.trim().isEmpty()) {
+                return entrada;
+            }
+            System.out.print("Erro! O campo não pode ficar vazio. Digite novamente: ");
+        }
+    }
+
 }
